@@ -1,5 +1,3 @@
-from typing import dict, list
-
 from dagster import Config
 
 

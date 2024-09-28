@@ -1,13 +1,8 @@
-from typing import dict, list
-
 import requests
 from dagster import Config, EnvVar, asset
 
+from src.config import DataSourceConfig
 from src.resources.s3 import S3Resource
-
-
-class DataSourceConfig(Config):
-    sources: list[dict[str, str]]
 
 
 @asset
@@ -24,7 +19,7 @@ def ingest_data(context, s3: S3Resource, config: DataSourceConfig):
 
         # Upload to S3
         s3.put_object(
-            Bucket=EnvVar("BUCKET_NAME"),
+            Bucket=EnvVar("BUCKET_NAME").get_value(),
             Key=f"raw_data/{source_id}.{file_type}",
             Body=response.content,
         )

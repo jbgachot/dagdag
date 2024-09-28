@@ -1,17 +1,16 @@
-# Dagster S3 to PostgreSQL ETL
+# DagDag
 
-This project demonstrates a simple ETL process using Dagster, with data ingestion to S3 and transformation to PostgreSQL.
+This project demonstrates a simple ETL process using [Dagster](https://dagster.io/), with data ingestion to S3, [DuckDB](https://duckdb.org/) for transformation and [PostgreSQL](https://www.postgresql.org/) for storing final results.
 
-## Setup
+## Prerequisites
 
-1. Install PDM: `pip install pdm`
-2. Install dependencies: `pdm install`
-3. Set up environment variables:
-   - `AWS_ACCESS_KEY_ID`
-   - `AWS_SECRET_ACCESS_KEY`
-   - `AWS_REGION`
-   - `POSTGRES_CONNECTION_STRING`
+- Docker
+- [Mise](https://mise.jdx.dev/)
 
-## Development
+## Development Setup
 
-To run the development server:
+1. Install dependencies: `mise install`
+2. Install Python dependencies: `pdm install`
+3. Run the Compose: `docker compose up -d`
+4. Start Dagster: `pdm run dev`
+5. Explore by opening http://localhost:3000

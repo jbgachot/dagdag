@@ -6,10 +6,10 @@ from dagster import EnvVar, asset
 from src.resources.s3 import S3Resource
 
 
-@asset
+@asset(deps=["convert_data"])
 def transform_data(context, s3: S3Resource):
     # List all Parquet files
-    objects = s3.list_objects_v2(Bucket=EnvVar("BUCKET_NAME"), Prefix="parquet_data/")
+    objects = s3.list_objects_v2(Bucket=EnvVar("BUCKET_NAME").get_value(), Prefix="parquet_data/")
 
     # Create an in-memory DuckDB database
     con = duckdb.connect(database=":memory:")
@@ -39,7 +39,7 @@ def transform_data(context, s3: S3Resource):
 
     # Upload result to S3
     s3.put_object(
-        Bucket=EnvVar("BUCKET_NAME"),
+        Bucket=EnvVar("BUCKET_NAME").get_value(),
         Key="processed_data/etl_result.parquet",
         Body=result_parquet_buffer.getvalue(),
     )

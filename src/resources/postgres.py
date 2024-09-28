@@ -1,7 +1,8 @@
-from dagster import ConfigurableResource
 import psycopg2
+from dagster import ConfigurableResource
 from psycopg2.extras import RealDictCursor
 from pydantic import Field
+
 
 class PostgresResource(ConfigurableResource):
     connection_string: str = Field(description="PostgreSQL connection string")
@@ -11,7 +12,7 @@ class PostgresResource(ConfigurableResource):
 
     def connect(self):
         return self.conn
-    
+
     def teardown_resource(self):
-        if hasattr(self, 'conn'):
+        if hasattr(self, "conn"):
             self.conn_close()

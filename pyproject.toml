@@ -26,3 +26,9 @@ lint = "ruff"
 
 [tool.pdm.dev-dependencies]
 dev = ["ruff>=0.6.8"]
+
+[tool.ruff.lint]
+select = ["ALL"]
+
+[tool.ruff]
+line-length = 120

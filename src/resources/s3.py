@@ -1,7 +1,9 @@
 import os
+
 import boto3
 from dagster import ConfigurableResource
 from pydantic import Field
+
 
 class S3Resource(ConfigurableResource):
     # aws_access_key_id: str = Field(description="AWS Access Key ID")
@@ -20,10 +22,7 @@ class S3Resource(ConfigurableResource):
             )
         else:
             # Use actual AWS S3 for production
-            return boto3.client(
-                "s3",
-                region_name=self.region_name
-            )
+            return boto3.client("s3", region_name=self.region_name)
         # self.client = boto3.client(
         #     's3',
         #     aws_access_key_id=self.aws_access_key_id,

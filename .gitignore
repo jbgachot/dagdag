@@ -1,2 +1,4 @@
 __pycache__/
+.pdm-build
 .venv
+.ruff_cache

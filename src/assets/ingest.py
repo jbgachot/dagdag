@@ -1,18 +1,21 @@
-from dagster import asset, Config, EnvVar
-from src.resources.s3 import S3Resource
-from typing import List, Dict
+from typing import dict, list
+
 import requests
+from dagster import Config, EnvVar, asset
+
+from src.resources.s3 import S3Resource
 
 
 class DataSourceConfig(Config):
-    sources: List[Dict[str, str]]
+    sources: list[dict[str, str]]
+
 
 @asset
-def ingest_data(context, s3:S3Resource, config: DataSourceConfig):
+def ingest_data(context, s3: S3Resource, config: DataSourceConfig):
     for source in config.sources:
-        source_id = source['id']
-        url = source['url']
-        file_type = source['type']
+        source_id = source["id"]
+        url = source["url"]
+        file_type = source["type"]
 
         # Fetch data
         response = requests.get(url)

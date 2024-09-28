@@ -1,0 +1,28 @@
+[project]
+name = "dagdag"
+version = "0.1.0"
+description = "Simple Dagster demo project"
+authors = [{ name = "Jean-Brice Gachot", email = "jb.gachot@gmail.com" }]
+dependencies = [
+    "boto3>=1.35.27",
+    "dagster>=1.8.8",
+    "dagster-webserver>=1.8.8",
+    "duckdb>=1.1.1",
+    "psycopg2-binary>=2.9.9",
+    "requests>=2.32.3",
+]
+requires-python = "<3.13,>=3.12"
+readme = "README.md"
+license = "MIT"
+
+[build-system]
+requires = ["pdm.backend"]
+build-backend = "pdm.backend"
+
+[tool.pdm.scripts]
+build = "docker build -t dagdag ."
+dev = "dagster dev"
+lint = "ruff"
+
+[tool.pdm.dev-dependencies]
+dev = ["ruff>=0.6.8"]
